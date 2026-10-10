@@ -10,7 +10,7 @@ client = TestClient(app)
 
 
 def _detect(**overrides):
-    body = {"provider": "fake", "image": "aW1hZ2U="} | overrides
+    body = {"provider": "fake", "image": "/9j/aW1hZ2U="} | overrides
     return client.post("/detect", json=body)
 
 
@@ -96,22 +96,29 @@ class TestDetect:
 
     @pytest.mark.parametrize("missing", ["provider", "image"])
     def test_missing_required_field_is_422(self, missing):
-        body = {"provider": "fake", "image": "aW1hZ2U="}
+        body = {"provider": "fake", "image": "/9j/aW1hZ2U="}
         del body[missing]
 
         assert client.post("/detect", json=body).status_code == 422
 
     def test_image_is_decoded_to_bytes(self, fake_detector_cls):
-        _detect(image="aW1hZ2U=")
+        _detect(image="/9j/aW1hZ2U=")
         image = fake_detector_cls.configured[-1].calls[-1]["image"]
 
-        assert image == b"image"
+        assert image == b"\xff\xd8\xff" + b"image"
 
     def test_invalid_base64_image_is_422(self, fake_detector_cls):
         response = _detect(image="not base64!")
 
         assert response.status_code == 422
         assert "image is not valid base64" in response.json()["detail"]
+
+    def test_unknown_image_format_is_422(self, fake_detector_cls):
+        response = _detect(image="aW1hZ2U=")
+
+        assert response.status_code == 422
+        assert "Unsupported or unknown image format" in response.json()["detail"]
+        assert fake_detector_cls.configured[-1].calls == []
 
     def test_characters_restrict_default_prompt(self, fake_detector_cls):
         _detect(characters=["Bowser", "Baby Peach"])

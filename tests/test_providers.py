@@ -17,7 +17,7 @@ from detectors.detector import image_media_type
 from json_models import TokenUsage
 from pydantic import BaseModel, ValidationError
 
-IMAGE_BYTES = b"fake-jpeg-bytes"
+IMAGE_BYTES = b"\xff\xd8\xff" + b"fake-jpeg-bytes"
 IMAGE_B64 = base64.b64encode(IMAGE_BYTES).decode("utf-8")
 DATA_URL = f"data:image/jpeg;base64,{IMAGE_B64}"
 CHARACTERS_JSON = json.dumps(
@@ -422,11 +422,14 @@ class TestImageMediaType:
             (b"RIFF\x00\x00\x00\x00WEBPVP8 ", "image/webp"),
             (b"GIF89a...", "image/gif"),
             (b"\xff\xd8\xff\xe0", "image/jpeg"),
-            (b"anything else", "image/jpeg"),
         ],
     )
     def test_is_read_from_the_first_bytes(self, image, expected):
         assert image_media_type(image) == expected
+
+    def test_unknown_format_raises(self):
+        with pytest.raises(ValueError, match="Unsupported or unknown image format"):
+            image_media_type(b"anything else")
 
     def test_openai_labels_a_png_as_png(self, sdk_client):
         client = sdk_client(openai_detector, "OpenAI")

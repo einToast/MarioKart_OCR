@@ -90,4 +90,4 @@ class TestInitDetectors:
             init_detectors()
 
         assert "broken" not in Detector.instances
-        assert "Detector 'broken' could not be initialised: no API key" in caplog.text
+        assert "Detector broken could not be initialised: no API key" in caplog.text

@@ -76,4 +76,4 @@ def fake_detector(fake_detector_cls):
 
 @pytest.fixture
 def image():
-    return b"fake-jpeg-bytes"
+    return b"\xff\xd8\xff" + b"fake-jpeg-bytes"
