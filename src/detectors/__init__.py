@@ -2,7 +2,7 @@ import importlib
 import logging
 import pkgutil
 
-from .detector import Detector, build_prompt
+from .detector import Detector, build_prompt, image_media_type
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +53,7 @@ __all__ = [
     "Detector",
     "build_prompt",
     "get_detector",
+    "image_media_type",
     "init_detectors",
     "set_detector_defaults",
 ]

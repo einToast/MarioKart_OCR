@@ -13,7 +13,7 @@ FastAPI webserver that reads the results table from a photo of a Mario Kart resu
 
 ```
 src/
-  webserver.py              FastAPI app: /healthcheck, /providers and /detect
+  webserver.py              FastAPI app
   json_models.py            Request and response models
   detectors/
     detector.py             Base class, provider registry and the prompt
@@ -155,7 +155,7 @@ Response:
 | Status | Meaning |
 |--------|---------|
 | `404` | Unknown provider. |
-| `422` | The request body is invalid or `image` is not valid base64. |
+| `422` | The request body is invalid, or `image` is not valid base64 or not a supported image format. |
 | `429` | The provider rate limited the request. Its `Retry-After` header is passed on. |
 | `502` | The provider returned any other error. |
 

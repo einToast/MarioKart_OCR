@@ -5,6 +5,7 @@ from detectors import (
     DETECTOR_REGISTRY,
     build_prompt,
     get_detector,
+    image_media_type,
     init_detectors,
     set_detector_defaults,
 )
@@ -115,6 +116,10 @@ def run_detection(request: DetectionRequest) -> DetectionResponse:
         raise HTTPException(
             status_code=422, detail=f"image is not valid base64: {exc}"
         ) from exc
+    try:
+        image_media_type(image)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     try:
         result = detector.detect_image(
