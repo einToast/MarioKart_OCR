@@ -16,7 +16,7 @@ jobs:
         - uses: actions/checkout@v7
 
         - name: Set up uv
-          uses: astral-sh/setup-uv@v9
+          uses: astral-sh/setup-uv@v10
           with:
             version: "0.12.16"
             python-version: "3.14"
@@ -27,7 +27,7 @@ jobs:
         
         - name: Start Webserver in Background
           run: |
-            nohup uv run fastapi dev webserver.py --port 8001 > webserver.log 2>&1 & echo $! > server.pid
+            nohup uv run fastapi dev src/webserver.py --port 8001 > webserver.log 2>&1 & echo $! > server.pid
 
         - name: Wait for Webserver to become healthy
           run: |
