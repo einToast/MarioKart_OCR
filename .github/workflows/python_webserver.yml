@@ -1,0 +1,54 @@
+name: Test Python Webserver
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+    webserver-test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v7
+
+        - name: Set up uv
+          uses: astral-sh/setup-uv@v9
+          with:
+            version: "0.12.16"
+            python-version: "3.14"
+            enable-cache: true
+
+        - name: Install dependencies
+          run: uv sync --locked
+        
+        - name: Start Webserver in Background
+          run: |
+            nohup uv run fastapi dev webserver.py --port 8001 > webserver.log 2>&1 & echo $! > server.pid
+
+        - name: Wait for Webserver to become healthy
+          run: |
+            curl --fail --silent --show-error \
+                 --retry 15 --retry-delay 2 --retry-connrefused \
+                 http://localhost:8001/healthcheck
+
+        - name: Test Webserver
+          run: |
+            curl -f http://localhost:8001/healthcheck
+        
+        - name: Test Webserver provider
+          run: |
+            curl -f http://localhost:8001/providers
+
+        - name: Show server logs on failure
+          if: failure()
+          run: |
+            echo "--- webserver.log (tail) ---" && tail -n 200 webserver.log || true
+
+        - name: Stop Webserver
+          if: always()
+          run: |
+            if [ -f server.pid ]; then kill $(cat server.pid) || true; fi
