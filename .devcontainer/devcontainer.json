@@ -2,7 +2,7 @@
   "name": "MarioKart OCR Dev Container",
   "image": "mcr.microsoft.com/devcontainers/python:3.14-trixie",
   "features": {
-    "ghcr.io/va-h/devcontainers-features/uv:1.0.0": {}
+    "ghcr.io/va-h/devcontainers-features/uv:1.1.4": {}
   },
   "forwardPorts": [
     8001
