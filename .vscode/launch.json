@@ -1,0 +1,49 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MarioKartOCR",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "fastapi",
+      "cwd": "${workspaceFolder}/src",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "dev",
+        "webserver.py",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8001"
+      ],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      },
+      "envFile": "${workspaceFolder}/.env",
+      "subProcess": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "MarioKartOCR Devcontainer",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "fastapi",
+      "cwd": "${workspaceFolder}/src",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "args": [
+        "dev",
+        "webserver.py",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8001"
+      ],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      },
+      "envFile": "${workspaceFolder}/.env",
+      "subProcess": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
