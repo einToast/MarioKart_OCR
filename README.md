@@ -19,7 +19,7 @@ src/
     detector.py             Base class, provider registry and the prompt
     *_detector.py           One detector per provider
 tests/                      pytest suite (detectors, providers, registry and API)
-Dockerfile                  Production image (Uvicorn, 2 workers)
+Dockerfile                  Production image (Uvicorn, 1 worker)
 .github/workflows/          Tests, webserver smoke test, Docker build
 ```
 
@@ -27,7 +27,7 @@ Every module in `src/detectors/` that defines a `Detector` subclass is registere
 
 | Provider | API key | Default model | Default thinking |
 |----------|---------|---------------|------------------|
-| `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-5.5` | `low` |
+| `anthropic` | `ANTHROPIC_API_KEY` | `claude-haiku-5-5` | `low` |
 | `gemini` | `GEMINI_API_KEY` | `gemini-3.8-flash` | `minimal` |
 | `mistral` | `MISTRAL_API_KEY` | `mistral-small-2603` | `minimal` |
 | `openai` | `OPENAI_API_KEY` | `gpt-6.1-sol` | `low` |
@@ -101,7 +101,7 @@ An unknown provider name returns `404`.
 
 All fields are optional. A field that is left out keeps its value, and a field that is `null` or empty goes back to the built-in default. The response is the resulting configuration.
 
-The settings are kept in memory. They are lost on restart, and each Uvicorn worker has its own copy.
+The settings are kept in memory and are lost on restart. The service therefore has to run with a single Uvicorn worker.
 
 ### `POST /detect`
 
