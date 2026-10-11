@@ -29,4 +29,4 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=10s \
 
 EXPOSE 8001
 
-CMD ["uvicorn", "webserver:app", "--app-dir", "/app/src", "--host", "0.0.0.0", "--port", "8001", "--workers", "2"]
+CMD ["uvicorn", "webserver:app", "--app-dir", "/app/src", "--host", "0.0.0.0", "--port", "8001"]
