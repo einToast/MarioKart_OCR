@@ -73,7 +73,7 @@ def get_provider_config(provider_name: str) -> ProviderConfig:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
-@app.post("/providers/{provider_name}/configure")
+@app.put("/providers/{provider_name}/configure")
 def configure_provider(
     provider_name: str, request: ProviderConfigRequest
 ) -> ProviderConfig:

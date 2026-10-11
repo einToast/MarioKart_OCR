@@ -162,7 +162,7 @@ def test_models_of_provider_without_key_is_503(fake_detector_cls):
 
 class TestConfigure:
     def test_sets_defaults_for_following_requests(self, fake_detector_cls):
-        response = client.post(
+        response = client.put(
             "/providers/fake/configure",
             json={"model": "configured-model", "prompt": "Read the scores."},
         )
@@ -178,23 +178,23 @@ class TestConfigure:
         assert fake_detector_cls.configured[-1].prompt == "Read the scores."
 
     def test_null_resets_to_builtin_default(self, fake_detector_cls):
-        client.post(
+        client.put(
             "/providers/fake/configure",
             json={"model": "configured-model", "thinking": "high"},
         )
-        body = client.post("/providers/fake/configure", json={"model": None}).json()
+        body = client.put("/providers/fake/configure", json={"model": None}).json()
 
         assert body["model"] == "fake-model"
         assert body["thinking"] == "high"
 
     def test_empty_body_returns_current_config(self, fake_detector_cls):
-        body = client.post("/providers/fake/configure", json={}).json()
+        body = client.put("/providers/fake/configure", json={}).json()
 
         assert body["model"] == "fake-model"
         assert "OCR detector" in body["prompt"]
 
     def test_characters_are_appended_to_configured_prompt(self, fake_detector_cls):
-        client.post("/providers/fake/configure", json={"prompt": "Read the scores."})
+        client.put("/providers/fake/configure", json={"prompt": "Read the scores."})
         _detect(characters=["Bowser"])
         prompt = fake_detector_cls.configured[-1].prompt
 
@@ -202,7 +202,7 @@ class TestConfigure:
         assert '"Bowser"' in prompt
 
     def test_unknown_provider_is_404(self):
-        response = client.post("/providers/does-not-exist/configure", json={})
+        response = client.put("/providers/does-not-exist/configure", json={})
 
         assert response.status_code == 404
 
@@ -217,7 +217,7 @@ class TestProviderConfig:
         assert "OCR detector" in body["prompt"]
 
     def test_returns_what_was_configured(self, fake_detector_cls):
-        client.post(
+        client.put(
             "/providers/fake/configure",
             json={"model": "configured-model", "prompt": "Read the scores."},
         )
@@ -303,7 +303,7 @@ class TestPlaceInPrompt:
         assert "- place:" in fake_detector_cls.configured[-1].prompt
 
     def test_configured_prompt_is_used_unchanged(self, fake_detector_cls):
-        client.post("/providers/fake/configure", json={"prompt": "Read the scores."})
+        client.put("/providers/fake/configure", json={"prompt": "Read the scores."})
         _detect()
 
         assert fake_detector_cls.configured[-1].prompt == "Read the scores."
