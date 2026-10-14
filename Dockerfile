@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --locked --no-dev --no-install-project
 
 #Stage 2: Run
-FROM python:3.14.7-slim AS runtime
+FROM python:3.14.8-slim AS runtime
 
 WORKDIR /app
 
