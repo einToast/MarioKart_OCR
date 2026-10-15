@@ -11,7 +11,7 @@ from .detector import Detector, image_media_type
 class AnthropicDetector(Detector):
     name = "anthropic"
 
-    default_model = "claude-sonnet-5.5"
+    default_model = "claude-haiku-5-5"
     default_thinking = "low"
 
     def __init__(self) -> None:
