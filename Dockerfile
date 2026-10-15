@@ -1,5 +1,5 @@
 #Stage 1: Build
-FROM ghcr.io/astral-sh/uv:0.12.16-python3.14-trixie-slim AS build
+FROM ghcr.io/astral-sh/uv:0.13.1-python3.14-trixie-slim AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --locked --no-dev --no-install-project
 
 #Stage 2: Run
-FROM python:3.14.7-slim AS runtime
+FROM python:3.14.8-slim AS runtime
 
 WORKDIR /app
 
