@@ -1,4 +1,5 @@
 import base64
+import logging
 import os
 
 import anthropic.resources  # noqa: F401
@@ -6,6 +7,8 @@ from anthropic import Anthropic
 from pydantic import BaseModel
 
 from .detector import Detector, image_media_type
+
+logger = logging.getLogger(__name__)
 
 
 class AnthropicDetector(Detector):
@@ -24,7 +27,8 @@ class AnthropicDetector(Detector):
             try:
                 capabilities = self.client.models.retrieve(self.model).capabilities
                 self._effort_support[self.model] = bool(capabilities.effort.supported)
-            except Exception:
+            except Exception as exc:
+                logger.warning(f"Effort support of {self.model} is unknown: {exc}")
                 return True
         return self._effort_support[self.model]
 

@@ -150,9 +150,9 @@ def test_startup_initialises_detectors(fake_detector_cls):
         assert len(fake_detector_cls.created) == 1
 
 
-def test_models_of_provider_without_key_is_503(fake_detector_cls):
+def test_models_of_provider_without_key_is_503(fake_detector_cls, monkeypatch):
     get_detector("fake")
-    Detector.instances["fake"].has_api_key = False
+    monkeypatch.setattr(Detector.instances["fake"], "has_api_key", False)
 
     response = client.get("/providers/fake/models")
 

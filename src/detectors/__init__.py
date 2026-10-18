@@ -11,8 +11,8 @@ for _module in pkgutil.iter_modules(__path__):
         continue
     try:
         importlib.import_module(f"{__name__}.{_module.name}")
-    except ImportError as exc:
-        logger.warning(f"Skipping detector module '{_module.name}': {exc}")
+    except ImportError as _error:
+        logger.warning(f"Skipping detector module '{_module.name}': {_error}")
 
 DETECTOR_REGISTRY = Detector.registry
 DETECTOR_INSTANCES = Detector.instances
@@ -34,9 +34,9 @@ def get_detector(name: str, **options) -> Detector:
 
 
 def set_detector_defaults(name: str, **options) -> Detector:
-    detector = _shared_detector(name)
-    detector.set_defaults(**options)
-    return detector
+    shared = _shared_detector(name)
+    shared.set_defaults(**options)
+    return shared
 
 
 def init_detectors() -> None:

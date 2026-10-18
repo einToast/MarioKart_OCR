@@ -1,9 +1,12 @@
 import copy
+import logging
 from abc import ABC, abstractmethod
-from typing import Annotated, ClassVar, Self
+from typing import ClassVar, Self
 
 from json_models import ProviderConfig, TokenUsage
-from pydantic import BaseModel, Field, create_model
+from pydantic import BaseModel, Field, conlist, create_model
+
+logger = logging.getLogger(__name__)
 
 _PROMPT_TABLE = """You are an OCR detector for Mario Kart result screens.
 
@@ -167,7 +170,8 @@ class Detector(ABC):
         try:
             self.get_available_models()
             return True
-        except Exception:
+        except Exception as exc:
+            logger.warning(f"Detector {self.name} is not available: {exc}")
             return False
 
     @abstractmethod
@@ -181,8 +185,9 @@ class Detector(ABC):
     ) -> BaseModel:
         pass
 
+    @staticmethod
     def _create_pydantic_model(
-        self, include_place: bool, min_characters: int, max_characters: int
+        include_place: bool, min_characters: int, max_characters: int
     ) -> type[BaseModel]:
         fields = {
             "name": (str, Field(..., description="Character's name.")),
@@ -199,10 +204,9 @@ class Detector(ABC):
             )
 
         character_model = create_model("Character", **fields)
-        characters_list_type = Annotated[
-            list[character_model],
-            Field(min_length=min_characters, max_length=max_characters),
-        ]
+        characters_list_type = conlist(
+            character_model, min_length=min_characters, max_length=max_characters
+        )
 
         return create_model(
             "MultipleCharacters", characters=(characters_list_type, ...)

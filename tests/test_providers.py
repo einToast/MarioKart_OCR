@@ -161,14 +161,18 @@ class TestGeminiDetector:
         ]
 
     def test_output_violating_character_count_raises(self, client, image):
+        detector = gemini_detector.GeminiDetector()
+
         with pytest.raises(ValidationError):
-            gemini_detector.GeminiDetector().detect_image(image)  # expects 4, gets 2
+            detector.detect_image(image)  # expects 4, gets 2
 
     def test_malformed_json_raises(self, client, image):
         client.interactions.create.return_value = SimpleNamespace(output_text="nope")
 
+        detector = gemini_detector.GeminiDetector()
+
         with pytest.raises(ValidationError):
-            gemini_detector.GeminiDetector().detect_image(image)
+            detector.detect_image(image)
 
 
 class TestOpenRouterDetector:
@@ -219,8 +223,10 @@ class TestOpenRouterDetector:
     def test_malformed_json_raises(self, client, image):
         client.beta.responses.send.return_value = SimpleNamespace(output_text="{}")
 
+        detector = openrouter_detector.OpenRouterDetector()
+
         with pytest.raises(ValidationError):
-            openrouter_detector.OpenRouterDetector().detect_image(image)
+            detector.detect_image(image)
 
 
 class TestModelListing:
