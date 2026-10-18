@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --locked --no-dev --no-install-project
+RUN uv sync --locked --no-build --no-dev --no-install-project
 
 #Stage 2: Run
 FROM python:3.14.8-slim AS runtime
@@ -14,7 +14,7 @@ WORKDIR /app
 
 COPY --from=build /app/.venv /app/.venv
 
-COPY . .
+COPY src ./src
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/* \
     && useradd --system --no-create-home --uid 10001 ocr \
