@@ -1,4 +1,5 @@
 import base64
+import logging
 from contextlib import asynccontextmanager
 
 from detectors import (
@@ -17,9 +18,11 @@ from json_models import (
     ProviderConfigRequest,
 )
 
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     init_detectors()
     yield
 
@@ -44,7 +47,8 @@ async def get_providers() -> list[str]:
 def _is_available(provider_name: str) -> bool:
     try:
         return get_detector(provider_name).is_available()
-    except Exception:
+    except Exception as exc:
+        logger.warning(f"Provider {provider_name} is not available: {exc}")
         return False
 
 
@@ -53,7 +57,13 @@ def get_available_providers() -> list[str]:
     return [name for name in DETECTOR_REGISTRY if _is_available(name)]
 
 
-@app.get("/providers/{provider_name}/models")
+@app.get(
+    "/providers/{provider_name}/models",
+    responses={
+        404: {"description": "Unknown provider"},
+        503: {"description": "Provider API key is not set"},
+    },
+)
 def get_provider_models(provider_name: str) -> list[str]:
     try:
         detector = get_detector(provider_name)
@@ -65,7 +75,10 @@ def get_provider_models(provider_name: str) -> list[str]:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
-@app.get("/providers/{provider_name}/config")
+@app.get(
+    "/providers/{provider_name}/config",
+    responses={404: {"description": "Unknown provider"}},
+)
 def get_provider_config(provider_name: str) -> ProviderConfig:
     try:
         return get_detector(provider_name).config()
@@ -73,7 +86,10 @@ def get_provider_config(provider_name: str) -> ProviderConfig:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
-@app.put("/providers/{provider_name}/configure")
+@app.put(
+    "/providers/{provider_name}/configure",
+    responses={404: {"description": "Unknown provider"}},
+)
 def configure_provider(
     provider_name: str, request: ProviderConfigRequest
 ) -> ProviderConfig:
@@ -101,7 +117,16 @@ def _provider_error(exc: Exception) -> HTTPException | None:
     )
 
 
-@app.post("/detect", response_model=DetectionResponse, response_model_exclude_none=True)
+@app.post(
+    "/detect",
+    response_model_exclude_none=True,
+    responses={
+        404: {"description": "Unknown provider"},
+        422: {"description": "Invalid request body or image"},
+        429: {"description": "Provider rate limit exceeded"},
+        502: {"description": "Provider request failed"},
+    },
+)
 def run_detection(request: DetectionRequest) -> DetectionResponse:
     try:
         detector = get_detector(request.provider)
