@@ -105,8 +105,9 @@ class TestCreatePydanticModel:
         result = model(characters=[_character(0, place=True)])
         assert result.characters[0].place == 1
 
+        characters = [_character(0)]
         with pytest.raises(ValidationError):
-            model(characters=[_character(0)])
+            model(characters=characters)
 
     def test_rejects_non_integer_points(self, fake_detector):
         model = fake_detector._create_pydantic_model(False, 1, 1)
