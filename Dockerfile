@@ -17,8 +17,7 @@ COPY --from=build /app/.venv /app/.venv
 COPY src ./src
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/* \
-    && useradd --system --no-create-home --uid 10001 ocr \
-    && python -m compileall .
+    && useradd --system --no-create-home --uid 10001 ocr
 
 USER ocr
 
