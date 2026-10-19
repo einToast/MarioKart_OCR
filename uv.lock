@@ -31,7 +31,7 @@ wheels = [
 
 [[package]]
 name = "anthropic"
-version = "1.14.0"
+version = "1.15.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -43,9 +43,9 @@ dependencies = [
     { name = "sniffio" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0f/c2/be99fac19b24c22b00d2a63ac1756b203bd3058ff54a14028c43b9f33116/anthropic-1.14.0.tar.gz", hash = "sha256:d9284895864a8457ed87f0accc51fd488ad9743952e597c814e7dc9d78ac8e38", size = 1715378, upload-time = "2026-10-14T17:13:33.508Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/10/37/5a2a4316df8babd28f096477a707cd75f240b4264c97fb128c32375105d6/anthropic-1.15.0.tar.gz", hash = "sha256:90caa9df83e2fc8bddb4ddeb83b7191bce255f635c03eae055deec521741df08", size = 1726101, upload-time = "2026-10-15T19:45:34.635Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5d/66/c395049fa6bf20b7f244adc8b7466f86a416b11f03528fa325868483de3a/anthropic-1.14.0-py3-none-any.whl", hash = "sha256:abd787048378abfabeebbad917ae0f9eae1eb4dfaa0a754096b5eea02dcf8c12", size = 2043565, upload-time = "2026-10-14T17:13:35.513Z" },
+    { url = "https://files.pythonhosted.org/packages/d1/65/54437e7edea49a3be9ef56f6b5965999bfdc52b9dadc9b448124ca51a594/anthropic-1.15.0-py3-none-any.whl", hash = "sha256:10189a7993c5c71a0a2d4bb80020ca6a2fd27679f51e627405da37251d15ff49", size = 2047755, upload-time = "2026-10-15T19:45:32.951Z" },
 ]
 
 [[package]]
@@ -514,7 +514,7 @@ requests = [
 
 [[package]]
 name = "google-genai"
-version = "2.30.1"
+version = "2.31.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -528,9 +528,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/df/8a/76e592bca2a4ff63a8ba8025012ccae2d1a9aa1762af2278f43756045e12/google_genai-2.30.1.tar.gz", hash = "sha256:a348b28b86a98fbc8e0bea759e14ae3ac807954355df8638079715d027cd14d5", size = 736895, upload-time = "2026-10-13T14:11:18.246Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/34/69/6a3d3839ab56ec17d7923c8679b38955e286e0a9793df10ce6d13bc5f122/google_genai-2.31.0.tar.gz", hash = "sha256:71518537de2ba967a61960cba844691dca3dd4ff07726c01a6917d132213541e", size = 745679, upload-time = "2026-10-14T23:52:24.836Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/28/faa7c02d87df1343aa8e51c816694a82eb37f41d0e83253e6e75a00b96ec/google_genai-2.30.1-py3-none-any.whl", hash = "sha256:1bb8961c60f7100439a45067a32764a18da0f8d0f95954ffc777d1f8225a2469", size = 1199070, upload-time = "2026-10-13T14:11:16.459Z" },
+    { url = "https://files.pythonhosted.org/packages/1c/64/1e9ab799830101ccbdcb67376a3f12b59e51f57643862999fd31af6938a1/google_genai-2.31.0-py3-none-any.whl", hash = "sha256:c87b9d495a24b09dedb29b852a201bea69ecd0b3f6c2561dc68f4055451b1b90", size = 1208245, upload-time = "2026-10-14T23:52:22.766Z" },
 ]
 
 [[package]]
@@ -767,12 +767,12 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "anthropic", specifier = ">=1.14.0" },
+    { name = "anthropic", specifier = ">=1.15.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.143.1" },
-    { name = "google-genai", specifier = ">=2.30.1" },
+    { name = "google-genai", specifier = ">=2.31.0" },
     { name = "mistralai", specifier = ">=3.2.0" },
     { name = "openai", specifier = ">=3.31.0" },
-    { name = "openrouter", specifier = ">=1.3.52" },
+    { name = "openrouter", specifier = ">=1.3.61" },
     { name = "pydantic", specifier = ">=2.12.5" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.54.0" },
 ]
@@ -872,7 +872,7 @@ wheels = [
 
 [[package]]
 name = "openrouter"
-version = "1.3.52"
+version = "1.3.61"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpcore" },
@@ -880,9 +880,9 @@ dependencies = [
     { name = "jsonpath-python" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3d/2f/eda284dfbdb8399193e4217d35beb4fb072af9804fac24522cd19385fe36/openrouter-1.3.52.tar.gz", hash = "sha256:1c6eec28853472437caf52700c2e50dca84ce3b684b81319c75afc64146ff4bf", size = 605328, upload-time = "2026-10-14T15:37:18.215Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/db/e2/4d99658641fe8bd0671f739e95167cd56e4365a4287407548e0bbeda15e8/openrouter-1.3.61.tar.gz", hash = "sha256:8e022d49f21374f273e2d322b577d0cc572a64a38a2a4ecc063912e9166e960d", size = 607336, upload-time = "2026-10-15T23:50:21.497Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/28/bc/e7003e39042ac12c5aaf7c3f75dea817185c0338d99cfdf05a328157fc54/openrouter-1.3.52-py3-none-any.whl", hash = "sha256:b1e99a95cb47b5b429c849e6d3e53ca3a217d932a598cfb6bd8dea27318873b5", size = 1315050, upload-time = "2026-10-14T15:37:16.519Z" },
+    { url = "https://files.pythonhosted.org/packages/ae/d1/8f2472363980997a286da90f012db1a27f9755b1aecc172004232e7b7df7/openrouter-1.3.61-py3-none-any.whl", hash = "sha256:e59d2dbf58f2bc9b7dfa02748de725ed235c43c6b3d34838b008fc476804db34", size = 1318598, upload-time = "2026-10-15T23:50:19.5Z" },
 ]
 
 [[package]]
