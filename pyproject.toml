@@ -1,7 +1,7 @@
 [project]
 name = "MarioKart_OCR"
 version = "0.1.0"
-requires-python = "==3.14.*"
+requires-python = "==3.15.*"
 dependencies = [
     "anthropic==2.3.0",
     "fastapi[standard]==0.162.0",
