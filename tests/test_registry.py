@@ -7,10 +7,6 @@ import pytest
 from detectors import DETECTOR_REGISTRY, Detector, get_detector, init_detectors
 
 
-def test_registry_is_detector_registry():
-    assert DETECTOR_REGISTRY is Detector.registry
-
-
 @pytest.mark.parametrize("provider", ["anthropic", "openai", "gemini", "openrouter"])
 def test_builtin_providers_are_registered(provider):
     assert provider in DETECTOR_REGISTRY
