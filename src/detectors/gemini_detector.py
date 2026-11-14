@@ -11,7 +11,7 @@ class GeminiDetector(Detector):
     name = "gemini"
 
     default_model = "gemini-3.8-flash"
-    default_thinking = "minimal"
+    default_thinking = "low"
 
     def __init__(self) -> None:
         api_key = os.getenv("GEMINI_API_KEY")

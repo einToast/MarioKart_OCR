@@ -28,7 +28,7 @@ Every module in `src/detectors/` that defines a `Detector` subclass is registere
 | Provider | API key | Default model | Default thinking |
 |----------|---------|---------------|------------------|
 | `anthropic` | `ANTHROPIC_API_KEY` | `claude-haiku-5-5` | `low` |
-| `gemini` | `GEMINI_API_KEY` | `gemini-3.8-flash` | `minimal` |
+| `gemini` | `GEMINI_API_KEY` | `gemini-3.8-flash` | `low` |
 | `mistral` | `MISTRAL_API_KEY` | `mistral-small-2603` | `minimal` |
 | `openai` | `OPENAI_API_KEY` | `gpt-6.1-sol` | `low` |
 | `openrouter` | `OPENROUTER_API_KEY` | `deepseek/deepseek-v4.1-flash` | `minimal` |
