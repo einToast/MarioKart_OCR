@@ -16,16 +16,16 @@ jobs:
           matrix:
             include:
               - arch: amd64
-                runner: ubuntu-24.04
+                runner: ubuntu-26.04
               - arch: arm64
-                runner: ubuntu-24.04-arm
+                runner: ubuntu-26.04-arm
         runs-on: ${{ matrix.runner }}
 
         steps:
         - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
         - name: Set up uv
-          uses: astral-sh/setup-uv@18d369b23da25a81e9458561248e1aafff6a70fa # v10.3.1
+          uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
           with:
             enable-cache: true
 
