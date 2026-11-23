@@ -1,6 +1,6 @@
 {
   "name": "MarioKart OCR Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/python:3.14-trixie",
+  "image": "mcr.microsoft.com/devcontainers/python:3.15-trixie",
   "features": {
     "ghcr.io/va-h/devcontainers-features/uv:1.1.4": {}
   },

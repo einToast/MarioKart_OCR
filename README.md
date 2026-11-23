@@ -4,7 +4,7 @@ FastAPI webserver that reads the results table from a photo of a Mario Kart resu
 
 ## Tech Stack
 
-- Python 3.14
+- Python 3.15
 - FastAPI
 - uv
 - Docker
@@ -39,7 +39,7 @@ Only the keys of the providers you want to use have to be set. A provider withou
 
 ### Prerequisites
 
-- Python 3.14
+- Python 3.15
 - uv
 
 ### Run locally
@@ -73,7 +73,7 @@ docker run --rm -p 8001:8001 --env-file .env mariokart-ocr
 
 ### Dev container
 
-The repo includes a VS Code dev container (Python 3.14 with uv). It creates `.venv`, installs the requirements and forwards port 8001. `.vscode/launch.json` has debug configurations for the host and for the dev container.
+The repo includes a VS Code dev container (Python 3.15 with uv). It creates `.venv`, installs the requirements and forwards port 8001. `.vscode/launch.json` has debug configurations for the host and for the dev container.
 
 ## API
 
