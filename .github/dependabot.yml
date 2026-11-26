@@ -34,6 +34,8 @@ updates:
       codeql-action:
         patterns:
           - "github/codeql-action*"
+        update-types:
+          - "major"
 
   - package-ecosystem: "docker"
     directory: "/"
