@@ -1,5 +1,5 @@
 #Stage 1: Build
-FROM ghcr.io/astral-sh/uv:0.13.9-python3.15-trixie-slim AS build
+FROM ghcr.io/astral-sh/uv:0.13.10-python3.15-trixie-slim AS build
 
 WORKDIR /app
 
