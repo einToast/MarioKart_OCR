@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
     open-pull-requests-limit: 10
     groups:
       python-minor:
@@ -17,8 +20,17 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
     open-pull-requests-limit: 10
     groups:
+      actions-minor:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
       codeql-action:
         patterns:
           - "github/codeql-action*"
@@ -27,14 +39,34 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "python"
         versions:
           - ">= 3.16.0a0, < 3.16.0"
-    
+    groups:
+      docker-minor:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
   - package-ecosystem: "devcontainers"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
     open-pull-requests-limit: 10
+    groups:
+      devcontainers-minor:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
